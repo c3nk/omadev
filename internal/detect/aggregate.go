@@ -19,7 +19,19 @@ const (
 	dataComponent     = "component"     // component path (for KindTechnology)
 	dataComponentName = "componentName" // display name for a component
 	dataAmbiguous     = "ambiguous"     // "true" on a KindWarning that blocks HIGH
+	dataInvalid       = "invalid"       // "true" on a KindWarning for an unparseable config
 )
+
+// HasInvalidConfig reports whether any finding flags an unparseable configuration
+// (e.g. a malformed Compose file), which maps to the invalid-config exit code.
+func HasInvalidConfig(findings []Finding) bool {
+	for _, f := range findings {
+		if f.Data[dataInvalid] == "true" {
+			return true
+		}
+	}
+	return false
+}
 
 // Aggregate composes findings into a normalized project model and computes overall
 // confidence. It is where a future .omdev.yaml override layer would merge (D2).

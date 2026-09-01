@@ -3,6 +3,8 @@
 package cmd
 
 import (
+	"errors"
+	"fmt"
 	"log/slog"
 	"os"
 
@@ -26,7 +28,7 @@ func newRootCmd() *cobra.Command {
 			"not replace Docker, Compose, mise, or your project's own scripts.",
 		Version:       version,
 		SilenceUsage:  true,
-		SilenceErrors: false,
+		SilenceErrors: true, // Execute owns error presentation
 		// Configure logging from the global verbosity flags before any command runs.
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			verbose, _ := cmd.Flags().GetBool("verbose")
@@ -46,11 +48,21 @@ func newRootCmd() *cobra.Command {
 	root.PersistentFlags().Bool("debug", false, "enable debug-level logging (never prints secrets)")
 	root.PersistentFlags().Bool("no-color", false, "disable colored output")
 
+	root.AddCommand(newInspectCmd())
+
 	return root
 }
 
 // Execute runs the root command and exits the process with the mapped exit code.
+// Commands present their own user-facing output for controlled outcomes (an
+// *exit.Error); any other error is unexpected and is printed here.
 func Execute() {
 	err := newRootCmd().Execute()
+	if err != nil {
+		var coded *exit.Error
+		if !errors.As(err, &coded) {
+			fmt.Fprintln(os.Stderr, "Error:", err)
+		}
+	}
 	os.Exit(int(exit.CodeOf(err)))
 }

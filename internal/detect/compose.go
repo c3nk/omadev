@@ -58,7 +58,7 @@ func (d ComposeDetector) Detect(ctx Context) ([]Finding, error) {
 	var cf composeFile
 	if err := yaml.Unmarshal(data, &cf); err != nil {
 		w := ambiguity(d.Name(), "Docker Compose file "+bases[0]+" could not be parsed")
-		w.Data["invalid"] = "true"
+		w.Data[dataInvalid] = "true"
 		return append(out, w), nil
 	}
 
