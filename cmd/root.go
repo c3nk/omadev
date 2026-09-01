@@ -3,8 +3,10 @@
 package cmd
 
 import (
+	"log/slog"
 	"os"
 
+	"github.com/c3nk/omadev/internal/logging"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +17,7 @@ var version = "0.0.0-dev"
 // newRootCmd builds the root command. Bare `omadev` will eventually print a project
 // overview; until the inspect command lands it prints help.
 func newRootCmd() *cobra.Command {
-	return &cobra.Command{
+	root := &cobra.Command{
 		Use:   "omadev",
 		Short: "A developer experience CLI designed for Omarchy",
 		Long: "Omadev inspects a repository, explains how its development environment runs,\n" +
@@ -24,12 +26,26 @@ func newRootCmd() *cobra.Command {
 		Version:       version,
 		SilenceUsage:  true,
 		SilenceErrors: false,
+		// Configure logging from the global verbosity flags before any command runs.
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+			verbose, _ := cmd.Flags().GetBool("verbose")
+			debug, _ := cmd.Flags().GetBool("debug")
+			slog.SetDefault(logging.New(os.Stderr, logging.Options{Verbose: verbose, Debug: debug}))
+			return nil
+		},
 		// Until the inspect overview lands, bare `omadev` prints help. This also makes
 		// the root command runnable so `--help` renders the full usage and flags.
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
 	}
+
+	// Global flags. No -v shorthand for --verbose: cobra reserves -v for --version.
+	root.PersistentFlags().Bool("verbose", false, "enable verbose (info-level) logging")
+	root.PersistentFlags().Bool("debug", false, "enable debug-level logging (never prints secrets)")
+	root.PersistentFlags().Bool("no-color", false, "disable colored output")
+
+	return root
 }
 
 // Execute runs the root command. Exit-code mapping is refined in a later change.
