@@ -8,6 +8,7 @@ package exec
 import (
 	"context"
 	"io"
+	"strings"
 )
 
 // Command is a structured subprocess invocation.
@@ -16,6 +17,11 @@ type Command struct {
 	Args []string // e.g. ["compose", "up", "-d"]
 	Dir  string   // working directory
 	Env  []string // explicit environment; nil inherits the current process env
+}
+
+// String renders the command as a shell-like line for display (not for execution).
+func (c Command) String() string {
+	return strings.TrimSpace(c.Name + " " + strings.Join(c.Args, " "))
 }
 
 // Result is the outcome of a captured command. A non-zero ExitCode is not a Go
