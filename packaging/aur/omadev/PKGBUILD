@@ -1,0 +1,28 @@
+# Maintainer: c3nk
+# Source package: builds omadev from the tagged release tarball.
+pkgname=omadev
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="A developer experience CLI designed for Omarchy"
+arch=('x86_64' 'aarch64')
+url="https://github.com/c3nk/omadev"
+license=('MIT')
+makedepends=('go>=1.24')
+provides=('omadev')
+conflicts=('omadev-bin')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+# Replace SKIP with the sha256 of the release tarball at publish time.
+sha256sums=('SKIP')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  CGO_ENABLED=0 go build -trimpath \
+    -ldflags "-s -w -X github.com/c3nk/omadev/cmd.version=v${pkgver}" \
+    -o omadev .
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 omadev "${pkgdir}/usr/bin/omadev"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
