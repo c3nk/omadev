@@ -49,7 +49,7 @@ Continue? [Y/n]
 
 ## Build from source
 
-Requires Go 1.23 or newer.
+Requires Go 1.24 or newer.
 
 ```bash
 git clone https://github.com/c3nk/omadev.git

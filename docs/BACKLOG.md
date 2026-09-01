@@ -12,7 +12,7 @@ Format per issue: **Objective · Scope · Acceptance · Dependencies · Non-goal
 
 ### M0-1 · Bootstrap Go module and Cobra skeleton
 - **Objective:** a buildable CLI answering `--version` and `--help`.
-- **Scope:** `go mod init github.com/c3nk/omadev` (Go 1.23); Cobra root command; `cmd/root.go` as
+- **Scope:** `go mod init github.com/c3nk/omadev` (Go 1.24); Cobra root command; `cmd/root.go` as
   composition root; `--version` wired to a build-stamped version var.
 - **Acceptance:** `go build ./...` produces `omadev`; `omadev --version` and `omadev --help` work;
   `go vet ./...` clean.

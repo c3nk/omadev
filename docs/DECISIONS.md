@@ -95,7 +95,9 @@ files, findings, the plan, and underlying commands, but never secret values.
 `github.com/c3nk/omadev`.
 
 ### S2 — Minimum Go version
-Go 1.23 (the `go` directive in `go.mod` and the version tested in CI).
+Go 1.24 (the `go` directive in `go.mod` and the version tested in CI). Raised from 1.23 to use
+`os.Root` for symlink-escape-safe filesystem sandboxing in the detector framework; on rolling
+Arch/Omarchy this minimum is not a practical constraint.
 
 ### S3 — Dependencies
 Standard library first; Cobra for the CLI, `gopkg.in/yaml.v3` for the Compose parser. No other

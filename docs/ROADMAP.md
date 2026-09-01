@@ -13,7 +13,7 @@ clever automation and predictable, transparent behavior, choose the latter.
 **Goal:** a clean, testable Go project that builds and runs `omadev --version` / `omadev --help`.
 
 Deliverables:
-- Go module `github.com/c3nk/omadev`, Go 1.23 (S1, S2).
+- Go module `github.com/c3nk/omadev`, Go 1.24 (S1, S2).
 - Cobra command skeleton; business logic separated from handlers (composition root in
   `cmd/root.go`).
 - `log/slog` logging with `--verbose` / `--debug`; `--no-color` handling (A4, S4).

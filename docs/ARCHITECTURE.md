@@ -73,7 +73,7 @@ omadev/
 ├── testdata/          # fixture repositories
 ├── docs/
 ├── .github/workflows/ci.yml
-├── go.mod             # module github.com/c3nk/omadev, go 1.23 (S1, S2)
+├── go.mod             # module github.com/c3nk/omadev, go 1.24 (S1, S2)
 ├── Makefile
 ├── LICENSE            # MIT
 └── README.md
