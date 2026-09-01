@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/c3nk/omadev/internal/exec"
 	"github.com/c3nk/omadev/internal/exit"
 	"github.com/c3nk/omadev/internal/logging"
 	"github.com/spf13/cobra"
@@ -36,10 +37,11 @@ func newRootCmd() *cobra.Command {
 			slog.SetDefault(logging.New(os.Stderr, logging.Options{Verbose: verbose, Debug: debug}))
 			return nil
 		},
-		// Until the inspect overview lands, bare `omadev` prints help. This also makes
-		// the root command runnable so `--help` renders the full usage and flags.
+		// Bare `omadev` shows an informational overview (D1); outside a project it
+		// falls back to help. Being runnable also makes `--help` render full usage.
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return cmd.Help()
+			noColor, _ := cmd.Flags().GetBool("no-color")
+			return runOverview(cmd.Context(), ".", cmd.OutOrStdout(), noColor, exec.OS{}, cmd.Help)
 		},
 	}
 
@@ -48,7 +50,13 @@ func newRootCmd() *cobra.Command {
 	root.PersistentFlags().Bool("debug", false, "enable debug-level logging (never prints secrets)")
 	root.PersistentFlags().Bool("no-color", false, "disable colored output")
 
-	root.AddCommand(newInspectCmd())
+	root.AddCommand(
+		newInspectCmd(),
+		newUpCmd(),
+		newDownCmd(),
+		newStatusCmd(),
+		newLogsCmd(),
+	)
 
 	return root
 }
