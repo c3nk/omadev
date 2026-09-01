@@ -132,6 +132,9 @@ Compose file. This is a review checkpoint for any change that adds debug logging
 
 ## 10. Reporting security issues
 
-Security reports should go to the project maintainer privately rather than via a public issue,
-until a fix is available. A `SECURITY.md` reporting section / contact will accompany the first
-public release (M2).
+Report vulnerabilities privately, not through a public issue, so a fix can be prepared before
+details are disclosed. Use GitHub's private vulnerability reporting for this repository
+(the "Report a vulnerability" button under the repository's Security tab), which opens a private
+advisory visible only to the maintainer. Please include reproduction steps and the affected
+version. You can expect an acknowledgement within a few days; once a fix is released, the advisory
+is published with credit unless you prefer otherwise.
