@@ -1,0 +1,7 @@
+{
+  "name": "node-vite-app",
+  "private": true,
+  "scripts": { "dev": "vite", "build": "vite build", "test": "vitest" },
+  "dependencies": { "react": "^18.3.0" },
+  "devDependencies": { "vite": "^5.4.0", "typescript": "^5.5.0" }
+}
