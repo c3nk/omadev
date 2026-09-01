@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/c3nk/omadev/internal/exit"
 	"github.com/c3nk/omadev/internal/logging"
 	"github.com/spf13/cobra"
 )
@@ -48,9 +49,8 @@ func newRootCmd() *cobra.Command {
 	return root
 }
 
-// Execute runs the root command. Exit-code mapping is refined in a later change.
+// Execute runs the root command and exits the process with the mapped exit code.
 func Execute() {
-	if err := newRootCmd().Execute(); err != nil {
-		os.Exit(1)
-	}
+	err := newRootCmd().Execute()
+	os.Exit(int(exit.CodeOf(err)))
 }
