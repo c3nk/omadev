@@ -1,7 +1,6 @@
 # Maintainer: c3nk
-# Prebuilt binary package. At each release, update pkgver and replace the SKIP
-# checksums with the real values from the release SHA256SUMS file so installs are
-# verified (see SECURITY.md, S11).
+# Prebuilt binary package. At each release, update pkgver and the sha256 values
+# below from the release SHA256SUMS file so installs are verified (SECURITY.md, S11).
 pkgname=omadev-bin
 pkgver=0.1.0
 pkgrel=1
@@ -13,9 +12,8 @@ provides=('omadev')
 conflicts=('omadev')
 source_x86_64=("omadev-v${pkgver}-linux-amd64::${url}/releases/download/v${pkgver}/omadev-v${pkgver}-linux-amd64")
 source_aarch64=("omadev-v${pkgver}-linux-arm64::${url}/releases/download/v${pkgver}/omadev-v${pkgver}-linux-arm64")
-# Replace SKIP with the sha256 from the release SHA256SUMS at publish time.
-sha256sums_x86_64=('SKIP')
-sha256sums_aarch64=('SKIP')
+sha256sums_x86_64=('b6eace1805b8d285c85570dbe74b9a7d37790a02e241b084244a4296e332859f')
+sha256sums_aarch64=('84e660f357c6dd258ab9361f929c3969e5feb1d41a4a0d63a7ef7de4f8a829cb')
 
 package() {
   case "$CARCH" in

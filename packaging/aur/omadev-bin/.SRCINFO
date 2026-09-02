@@ -9,8 +9,8 @@ pkgbase = omadev-bin
 	provides = omadev
 	conflicts = omadev
 	source_x86_64 = omadev-v0.1.0-linux-amd64::https://github.com/c3nk/omadev/releases/download/v0.1.0/omadev-v0.1.0-linux-amd64
-	sha256sums_x86_64 = SKIP
+	sha256sums_x86_64 = b6eace1805b8d285c85570dbe74b9a7d37790a02e241b084244a4296e332859f
 	source_aarch64 = omadev-v0.1.0-linux-arm64::https://github.com/c3nk/omadev/releases/download/v0.1.0/omadev-v0.1.0-linux-arm64
-	sha256sums_aarch64 = SKIP
+	sha256sums_aarch64 = 84e660f357c6dd258ab9361f929c3969e5feb1d41a4a0d63a7ef7de4f8a829cb
 
 pkgname = omadev-bin

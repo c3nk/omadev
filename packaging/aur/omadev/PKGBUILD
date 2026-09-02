@@ -11,8 +11,7 @@ makedepends=('go>=1.24')
 provides=('omadev')
 conflicts=('omadev-bin')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-# Replace SKIP with the sha256 of the release tarball at publish time.
-sha256sums=('SKIP')
+sha256sums=('3728296df01d434d32e78ebc024a163492a7a2f04eacfa13c12a837d4c020b4d')
 
 build() {
   cd "${pkgname}-${pkgver}"
